@@ -23,15 +23,20 @@ def emojified(guess: str, secret: str) -> str:
     assert len(guess) == len(secret), "Guess must be same length as secret"
     emoji: str = ""
     idx: int = 0
-    while contains_char(word=guess, character=secret[idx]):
+    while idx < len(guess):
+        if contains_char(word=guess[idx], character=secret[idx]) == True:
+            emoji = emoji + GREEN_BOX
+        elif contains_char(word=guess, character=secret[idx]) == True:
+            emoji = emoji + YELLOW_BOX
+        else:
+            emoji = emoji + WHITE_BOX
         idx = idx + 1
-        return
+    return emoji
 
 
 def input_guess(N: int) -> str:
     """Given an integer of expected length of a guess, this function prompts the user for a guess of the expected length"""
-    word = input(f"Enter a {N} character word:")
+    word: str = input(f"Enter a {N} character word:")
     while len(word) != N:
-        return f"That wasn't {N} chars! Try again:"
-
+        word = input(f"That wasn't {N} chars! Try again:")
     return word
