@@ -7,6 +7,11 @@ GREEN_BOX: str = "\U0001F7E9"
 YELLOW_BOX: str = "\U0001F7E8"
 
 
+def main(secret: str) -> None:
+    """The entrypoint of the program and main game loop."""
+    turn: int = 0
+
+
 def contains_char(word: str, character: str) -> bool:
     """This function searches given word for given character"""
     assert len(character) == 1, f"len('{character}) is not 1"
@@ -24,9 +29,9 @@ def emojified(guess: str, secret: str) -> str:
     emoji: str = ""
     idx: int = 0
     while idx < len(guess):
-        if contains_char(word=guess[idx], character=secret[idx]) == True:
+        if contains_char(word=secret[idx], character=guess[idx]) == True:
             emoji = emoji + GREEN_BOX
-        elif contains_char(word=guess, character=secret[idx]) == True:
+        elif contains_char(word=secret, character=guess[idx]) == True:
             emoji = emoji + YELLOW_BOX
         else:
             emoji = emoji + WHITE_BOX
