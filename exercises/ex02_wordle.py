@@ -10,15 +10,18 @@ YELLOW_BOX: str = "\U0001F7E8"
 
 def main(secret: str) -> None:
     """The entrypoint of the program and main game loop."""
+    # The user has 6 turns in the game, starting at turn 1.
     turn: int = 1
-    # The variable N is defined as the length of the argument passed
+    # The variable N is the length of the argument passed
     # into the main() function so that the user is not limited
     # to only one length for their secret word.
     N: int = len(secret)
     # This while loop says that, if the string of emojis resulting from emojified()
-    # is completely green (N green boxes), then return the "win" statement.
-    # Otherwise, increase the turn value by 1 and run the while loop
+    # is completely green (i.e., the user's guess matches the secret word perfectly),
+    # then return the "win" statement.
+    # Otherwise, move onto the next turn and run the while loop
     # again for a new guess.
+    # After 6 attempts, the game quits with the printed "loss" statement.
     while turn < 7:
         print(f"=== Turn {turn}/6 ===")
         guess = input_guess(N)
@@ -33,6 +36,8 @@ def main(secret: str) -> None:
 def contains_char(word: str, character: str) -> bool:
     """This function searches given word for given character"""
     assert len(character) == 1, f"len('{character}) is not 1"
+    # idx stands for index. By starting its value at 0, we are
+    # starting at the first letter of the string (see line 47).
     idx: int = 0
     # This while loop iterates through every letter of the given word.
     # It returns True if the letter is the same as the given character,
@@ -48,28 +53,30 @@ def contains_char(word: str, character: str) -> bool:
 def emojified(guess: str, secret: str) -> str:
     """Test for yellow, white, or green box codification"""
     assert len(guess) == len(secret), "Guess must be same length as secret"
-    # Emoji is initialized as an empty string where the while
-    # loop adds a new emoji onto the end of the string in each iteration
+    # Emoji is a variable that starts an empty string. The while
+    # loop adds a new emoji onto the end of the string in each iteration.
     emoji: str = ""
     idx: int = 0
-    # This while loop iterates through each letter of the guess.
+    # This while loop iterates through each letter of the user's guess.
     # For every letter, it  calls the contains_char function.
     # In the if statement, the function call looks specifically
     # at the first letter of the secret word, and the first letter
     # of the guess. If they are the same, the function will return
     # True, and then a Green Box will be added to the emoji string.
-    # In the elif statement, the function call looks at the first
+    # If not (elif), the function call then looks at the first
     # letter of the guess and sees if it is contained anywhere in
-    # the secret. If it is, it will return True, and a Yellow Box
-    # will be added to the emoji string. The else statement means
-    # that the first letter of the guess was not found anywhere in
-    # the secret word, so a White Box is added. This process is
-    # iterated for every letter in the guess to form an emoji
-    # that is the same length as the guess.
+    # the secret word. If it is, it will return True, and a Yellow Box
+    # will be added to the emoji string. If the first letter of the guess
+    # is not found anywhere in the secret word (else), then a White Box is added.
+    # This process repeats for every letter in the guess to form an
+    # emoji that is the same length as the guess, telling the user
+    # which letters from the guess are in the right spot of the secret word (Green Box),
+    # which letters are in the secret word but are in the wrong spot (Yellow Box),
+    # and which letters are not in the secret word at all (White Box).
     while idx < len(guess):
-        if contains_char(word=secret[idx], character=guess[idx]) == True:
+        if contains_char(word=secret[idx], character=guess[idx]):
             emoji = emoji + GREEN_BOX
-        elif contains_char(word=secret, character=guess[idx]) == True:
+        elif contains_char(word=secret, character=guess[idx]):
             emoji = emoji + YELLOW_BOX
         else:
             emoji = emoji + WHITE_BOX
@@ -79,21 +86,24 @@ def emojified(guess: str, secret: str) -> str:
 
 def input_guess(N: int) -> str:
     """Prompt user for a guess of the expected length"""
-    # The word variable is initialized as the string
-    # inputted by the user.
+    # The word variable is a string whose initial value is the
+    # word inputted by the user when prompted. Observe that this word,
+    # after this function call is completed, ends up being the user's guess
+    # in the main() function call (see line 27).
     word: str = input(f"Enter a {N} character word:")
     # This while loop ensures that the length of the inputted
-    # word is the same as the specified length N in the function
-    # call. As long as they are NOT the same length, the
+    # word is the same as the length N specified in the function
+    # call. As long as they are not the same length, the
     # user will be prompted for a new word, whose value
-    # will be assigned to the word variable, thereby
-    # replacing its previous value. This loop is
-    # escaped once word is of length N, and then word
-    # is returned to wherever the function is called.
+    # will be assigned to the word variable, replacing
+    # its previous value. This loop is ended once the user's word is of length N,
+    # and then the word is returned to wherever the function was called (see line 27).
     while len(word) != N:
         word = input(f"That wasn't {N} chars! Try again:")
     return word
 
 
+# These 2 lines make it possible for this program to run as a module and for
+# other modules to import the above functions and reuse them.
 if __name__ == "__main__":
     main(secret="codes")
