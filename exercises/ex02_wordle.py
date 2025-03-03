@@ -15,7 +15,7 @@ def main(secret: str) -> None:
     # The variable N is the length of the argument passed
     # into the main() function so that the user is not limited
     # to only one length for their secret word.
-    N: int = len(secret)
+    n: int = len(secret)
     # This while loop says that, if the string of emojis resulting from emojified()
     # is completely green (i.e., the user's guess matches the secret word perfectly),
     # then return the "win" statement.
@@ -24,9 +24,9 @@ def main(secret: str) -> None:
     # After 6 attempts, the game quits with the printed "loss" statement.
     while turn < 7:
         print(f"=== Turn {turn}/6 ===")
-        guess = input_guess(N)
+        guess = input_guess(n)
         print(emojified(guess=guess, secret=secret))
-        if emojified(guess=guess, secret=secret) == GREEN_BOX * N:
+        if emojified(guess=guess, secret=secret) == GREEN_BOX * n:
             print(f"You won in {turn}/6 turns!")
             return
         turn += 1
@@ -84,13 +84,13 @@ def emojified(guess: str, secret: str) -> str:
     return emoji
 
 
-def input_guess(N: int) -> str:
+def input_guess(n: int) -> str:
     """Prompt user for a guess of the expected length"""
     # The word variable is a string whose initial value is the
     # word inputted by the user when prompted. Observe that this word,
     # after this function call is completed, ends up being the user's guess
     # in the main() function call (see line 27).
-    word: str = input(f"Enter a {N} character word:")
+    word: str = input(f"Enter a {n} character word:")
     # This while loop ensures that the length of the inputted
     # word is the same as the length N specified in the function
     # call. As long as they are not the same length, the
@@ -98,8 +98,8 @@ def input_guess(N: int) -> str:
     # will be assigned to the word variable, replacing
     # its previous value. This loop is ended once the user's word is of length N,
     # and then the word is returned to wherever the function was called (see line 27).
-    while len(word) != N:
-        word = input(f"That wasn't {N} chars! Try again:")
+    while len(word) != n:
+        word = input(f"That wasn't {n} chars! Try again:")
     return word
 
 
