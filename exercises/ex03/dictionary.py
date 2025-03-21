@@ -30,7 +30,3 @@ def favorite_color(colors : dict[str, str]) -> str:
     for name in colors:
 
 def bin_len(lst: list[str]) -> dict[int, set[str]]:
-
-
-# edits for commit
-# slay
