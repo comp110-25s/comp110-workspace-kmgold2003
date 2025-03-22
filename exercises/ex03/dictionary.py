@@ -27,7 +27,20 @@ def count(lst: list[str]) -> dict[str, int]:
     return result
 
 def favorite_color(colors : dict[str, str]) -> str:
+    result: str = ""
+    idx: int = 0
     for name in colors:
+    pass
 
 def bin_len(lst: list[str]) -> dict[int, set[str]]:
-    pass
+    """Bins list of strings into dictionary keyed by length of string"""
+    result: dict[int, set[str]] = {}
+    idx: int = 0
+    while idx < len(lst):
+        length = len(lst[idx])
+        if length in result:
+            result[length].add(lst[idx])
+        else:
+            result[length] = {lst[idx]}
+        idx += 1
+    return result
