@@ -26,11 +26,22 @@ def count(lst: list[str]) -> dict[str, int]:
         idx += 1
     return result
 
-def favorite_color(colors : dict[str, str]) -> str:
+
+def favorite_color(colors: dict[str, str]) -> str:
+    """Counts frequency of colors to find favorite"""
     result: str = ""
-    idx: int = 0
+    lst: list[str] = []
+    freq: dict[str, int] = {}
+    num: int = 0
     for name in colors:
-    pass
+        lst.append(colors[name])
+    freq = count(lst)
+    for color in freq:
+        if freq[color] > num:
+            result = color
+            num = freq[color]
+    return result
+
 
 def bin_len(lst: list[str]) -> dict[int, set[str]]:
     """Bins list of strings into dictionary keyed by length of string"""
