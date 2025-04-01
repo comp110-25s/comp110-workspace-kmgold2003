@@ -32,14 +32,18 @@ def favorite_color(colors: dict[str, str]) -> str:
     result: str = ""
     lst: list[str] = []
     freq: dict[str, int] = {}
-    num: int = 0
     for name in colors:
         lst.append(colors[name])
-    freq = count(lst)
+    for color in lst:
+        if color in freq:
+            freq[color] += 1
+        else:
+            freq[color] = 1
+    fav_color: int = 0
     for color in freq:
-        if freq[color] > num:
+        if freq[color] > fav_color:
+            fav_color = freq[color]
             result = color
-            num = freq[color]
     return result
 
 
