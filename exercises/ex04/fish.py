@@ -1,7 +1,7 @@
 """File to define Fish class."""
 
 class Fish:
-    age: integer
+    age: int
     def __init__(self):
         self.age = 0
         return None

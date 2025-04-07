@@ -1,8 +1,8 @@
 """File to define Bear class."""
 
 class Bear:
-    age: integer
-    hunger_score: integer
+    age: int
+    hunger_score: int
     def __init__(self):
         self.age = 0
         self.hunger_score = 0
