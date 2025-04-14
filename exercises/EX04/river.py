@@ -26,16 +26,16 @@ class River:
 
     def check_ages(self):
         """Check age of bear and fish and remove if too old."""
-        bear_copy: list[Bear] = []
-        fish_copy: list[Fish] = []
+        bears_alive: list[Bear] = []
+        fish_alive: list[Fish] = []
         for bear in self.bears:
             if bear.age <= 5:
-                bear_copy.append(bear)
+                bears_alive.append(bear)
         for fish in self.fish:
             if fish.age <= 3:
-                fish_copy.append(fish)
-        self.bears = bear_copy
-        self.fish = fish_copy
+                fish_alive.append(fish)
+        self.bears = bears_alive
+        self.fish = fish_alive
         return None
 
     def remove_fish(self, amount: int) -> None:
@@ -56,11 +56,11 @@ class River:
 
     def check_hunger(self):
         """Check hunger score of bear."""
-        bear_copy: list[Bear] = []
+        bears_alive: list[Bear] = []
         for bear in self.bears:
             if bear.hunger_score >= 0:
-                bear_copy.append(bear)
-        self.bears = bear_copy
+                bears_alive.append(bear)
+        self.bears = bears_alive
 
         return None
 
@@ -113,9 +113,9 @@ class River:
         self.view_river()
 
     def one_river_week(self):
-        """Simuleate one week of life in the river."""
-        count: int = 0
-        while count < 7:
+        """Simulate one week of life in the river."""
+        days_run: int = 0
+        while days_run < 7:
             self.one_river_day()
-            count += 1
+            days_run += 1
         return None
